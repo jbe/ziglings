@@ -50,15 +50,15 @@ const Alien = struct {
     health: u8,
 
     // We hate this method:
-    pub fn hatch(strength: u8) Alien {
+    fn hatch(strength: u8) Alien {
         return Alien{
             .health = strength * 5,
         };
     }
 
     // We love this method:
-    pub fn zap(self: *Alien, damage: u8) void {
-        self.health -= if (damage >= self.health) self.health else damage;
+    fn zap(self: *Alien, damage: u8) void {
+        self.health -= std.math.min(self.health, damage);
     }
 };
 
@@ -84,7 +84,7 @@ pub fn main() void {
         for (aliens) |*alien| {
 
             // *** Zap the Alien Here! ***
-            ???.zap(heat_ray_strength);
+            alien.zap(heat_ray_strength);
 
             // If the alien's health is still above 0, it's still alive.
             if (alien.health > 0) aliens_alive += 1;

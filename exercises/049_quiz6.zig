@@ -27,7 +27,13 @@ const Elephant = struct {
     // Your Elephant trunk methods go here!
     // ---------------------------------------------------
 
-    ???
+    pub fn getTrunk(self: *Elephant) *Elephant {
+        return self.trunk.?; // Remember, this means "orelse unreachable"
+    }
+
+    pub fn hasTrunk(self: *Elephant) bool {
+        return (self.trunk != null);
+    }
 
     // ---------------------------------------------------
 
@@ -72,9 +78,7 @@ fn visitElephants(first_elephant: *Elephant) void {
         // This gets the next elephant or stops.
         if (e.hasTail()) {
             e = e.getTail();
-        } else {
-            break;
-        }
+        } else break;
     }
 
     // We follow the trunks!
